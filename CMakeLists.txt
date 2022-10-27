@@ -1,24 +1,12 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12)
 project(AI4G)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../lib)
-set(SRC ../src)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
-find_package(GLU REQUIRED)
-find_package(GLUT REQUIRED)
-IF(APPLE)
-   INCLUDE_DIRECTORIES ( /System/Library/Frameworks )
-   FIND_LIBRARY(COCOA_LIBRARY Cocoa)
-   FIND_LIBRARY(GLUT_LIBRARY GLUT )
-   FIND_LIBRARY(OPENGL_LIBRARY OPENGL )
-   MARK_AS_ADVANCED (COCOA_LIBRARY
-                     GLUT_LIBRARY
-                     OPENGL_LIBRARY)
-   SET(EXTRA_LIBS ${COCOA_LIBRARY} ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
-ENDIF (APPLE)
+set(SRC src)
 
-include_directories(../include ${GLUT_INCLUDE_DIR} ${GL_INCLUDE_DIR})
+include_directories(include)
 
 add_library(aicore STATIC
   ${SRC}/action.cpp
@@ -40,7 +28,7 @@ add_library(aicore STATIC
   ${SRC}/demos/common/gl/main.cpp
 )
 
-set(DEMO_DEPS aicore ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
+set(DEMO_DEPS aicore ${CONAN_LIBS})
 
 add_executable(c03_flocking ${SRC}/demos/c03_flocking/flocking_demo.cpp ${SRC}/demos/c03_flocking/flock_steer.cpp)
 add_executable(c03_kinematic ${SRC}/demos/c03_kinematic/kinematic_demo.cpp)

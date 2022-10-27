@@ -67,9 +67,7 @@ namespace aicore
     unsigned long systemClock()
     {
 #ifdef _WIN32
-        __asm {
-            rdtsc;
-        }
+        return __rdtsc();
 #else
         volatile uint32_t lo, hi;
         asm volatile ("rdtsc" : "=a" (lo), "=d" (hi));

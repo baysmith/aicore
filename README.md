@@ -44,39 +44,22 @@ possible. The only file that may need altering for your platform is
 Building
 ========
 
-Building with Scons
+Building with Conan and CMake
 -------------------
 
-The code can be built using SCONS, available from
-http://www.scons.org/. Simply cd (change directory) into the build
-directory and type scons.
+The code can be built using CMake and the Conan package manager.
 
-> cd build
-> scons
+```shell
+mkdir build
+cd build
+conan install ..
+cmake .. -G "Visual Studio 16"
+cmake --build . --config Release
+```
 
-To remove intermediate files after building (but leaving the library
-and demos):
+The "Visual Studio 16" may need to be replace with another compiler. Use `conan
+profile show default` to see which compiler conan is using.
 
-> scons -c ../src
-
-
-Building with Microsoft Visual Studio 8 Professional
-----------------------------------------------------
-
-Solution and project files are included for use with Microsoft visual
-studio 8 professional. They may also work with Express edition, but
-I've not tested that.
-
-
-Building with CMake on Linux
-----------------------------
-
-The code can be built on Linux (and possibly on other platforms)
-using CMake:
-
-  cd build
-  cmake .
-  make
 
 Documentation
 -------------
