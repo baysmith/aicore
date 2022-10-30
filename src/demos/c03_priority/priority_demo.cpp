@@ -203,7 +203,7 @@ void SteeringPriorityDemo::display()
 	gluDeleteQuadric(qobj);
 
 	// Draw a spot where the avoid steering's target was.
-	if (!isBlended && priority->lastUsed != wander)
+	if (!isBlended && priority->lastUsed != nullptr && priority->lastUsed != wander)
 	{
 		glColor3f(1,0,0);
 		renderSpot(*((aicore::Seek*)priority->lastUsed)->target);
